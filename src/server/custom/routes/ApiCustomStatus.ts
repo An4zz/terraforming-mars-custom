@@ -5,6 +5,7 @@ import {Request} from '@/server/Request';
 import {Response} from '@/server/Response';
 import {CustomStatusModel} from '@/common/custom/CustomStatusModel';
 import {CustomStore} from '../store/CustomStore';
+import {TurnNotifier} from '../discord/TurnNotifier';
 
 /** Reports which custom features this server has enabled and how it stores their data. */
 export class ApiCustomStatus extends Handler {
@@ -19,6 +20,7 @@ export class ApiCustomStatus extends Handler {
       store: CustomStore.getInstance().constructor.name,
       features: {
         presets: true,
+        discordNotifications: TurnNotifier.getInstance().client.dmAvailable || TurnNotifier.getInstance().client.channelAvailable,
       },
     };
     responses.writeJson(res, ctx, model);

@@ -37,6 +37,13 @@ on the first copy, and a selection prompt can pick only one copy at a time.
 The same panel sets the project cards, corporations, preludes and CEOs every player starts with.
 Shorter lists are topped up at random; drafts are turned off for any category that has a list.
 
+## Discord turn notifications
+
+Set `DISCORD_BOT_TOKEN` (direct messages) and/or `DISCORD_WEBHOOK_URL` (mentions in one channel)
+in `.env`; see `.env.sample`. Each player then opts in from the "Custom features" panel on their
+player page with their Discord user id. A player is told once per prompt, not while they are
+actively playing, and at most once every 30 seconds. A server restart can repeat one message.
+
 ## Syncing with upstream
 
 ```

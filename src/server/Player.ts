@@ -79,6 +79,7 @@ import {AlliedParty} from '../common/turmoil/Types';
 import {PlayedCards} from './cards/PlayedCards';
 import {From} from './logs/From';
 import {SelectStandardProjectToPlay} from './inputs/SelectStandardProjectToPlay';
+import {TurnNotifier} from './custom/discord/TurnNotifier'; // CUSTOM(discord)
 
 const THROW_STATE_ERRORS = Boolean(process.env.THROW_STATE_ERRORS);
 const DEFAULT_GLOBAL_PARAMETER_STEPS = {
@@ -1697,6 +1698,7 @@ export class Player implements IPlayer {
     const waitingForCb = this.waitingForCb;
     this.waitingFor = undefined;
     this.waitingForCb = undefined;
+    TurnNotifier.getInstance().onInput(this); // CUSTOM(discord)
     try {
       if (!waitingFor.optional) {
         this.timer.stop();
@@ -1728,6 +1730,7 @@ export class Player implements IPlayer {
     this.waitingFor = input;
     this.waitingForCb = cb;
     this.game.inputsThisRound++;
+    TurnNotifier.getInstance().onWaitingFor(this, input); // CUSTOM(discord)
   }
 
   /**

@@ -1,4 +1,5 @@
 import {CustomStore} from './store/CustomStore';
+import {TurnNotifier} from './discord/TurnNotifier';
 
 /**
  * Starts the fork's custom services.
@@ -7,4 +8,5 @@ import {CustomStore} from './store/CustomStore';
  */
 export async function initializeCustom(): Promise<void> {
   await CustomStore.getInstance().initialize();
+  await TurnNotifier.getInstance().initialize();
 }

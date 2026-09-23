@@ -78,6 +78,15 @@ response, then from `localStorage`.
 `customHandlers`, `PlayerHome.vue` (panel), `server.ts` (load opt-ins), `.env.sample`
 (documented variables).
 
+## Deviations found while building
+
+- The reload/undo dedupe uses a prompt fingerprint (phase, generation, input type and title)
+  rather than `inputsThisRound`, because a reload re-increments that counter. A re-issued
+  prompt with the same fingerprint is silent; a new prompt is not.
+- The route reads the request body before resolving the player, so malformed bodies are
+  rejected first.
+- A "Send test" button was added so a player can confirm delivery right after opting in.
+
 ## Execution tasks
 
 Build:

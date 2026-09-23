@@ -51,6 +51,7 @@
         <DynamicTitle title="Actions" :color="thisPlayer.color"/>
         <WaitingFor v-if="game.phase !== 'end'" :playerView="playerView" :waitingfor="playerView.waitingFor"/>
       </div>
+      <CustomPlayerPanel class="player_home_block nofloat" :playerId="playerView.id" /> <!-- CUSTOM(discord) -->
 
       <div class="player_home_block player_home_block--hand" v-if="playerView.draftedCards.length > 0">
         <DynamicTitle title="Drafted cards" :color="thisPlayer.color" />
@@ -167,6 +168,7 @@ import StackedCards from '@/client/components/StackedCards.vue';
 import PurgeWarning from '@/client/components/common/PurgeWarning.vue';
 import UndergroundTokens from '@/client/components/underworld/UndergroundTokens.vue';
 import KeyboardShortcuts from '@/client/components/KeyboardShortcuts.vue';
+import CustomPlayerPanel from '@/client/components/custom/CustomPlayerPanel.vue'; // CUSTOM(discord)
 import {getPreferences, Preferences, PreferencesManager} from '@/client/utils/PreferencesManager';
 import {GameModel} from '@/common/models/GameModel';
 import {PlayerViewModel, PublicPlayerModel} from '@/common/models/PlayerModel';
@@ -292,6 +294,7 @@ export default defineComponent({
     PurgeWarning,
     UndergroundTokens,
     KeyboardShortcuts,
+    CustomPlayerPanel, // CUSTOM(discord)
   },
   methods: {
     isPlayerActing(playerView: PlayerViewModel) : boolean {
