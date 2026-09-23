@@ -33,7 +33,7 @@ describe('duplicate cards in play', () => {
 
   it('playing one copy removes exactly one from hand', () => {
     const select = new SelectProjectCardToPlay(player);
-    select.process({type: 'projectCard', card: CardName.TARDIGRADES, payment: Payment.of({megacredits: 4})}, player);
+    select.process({type: 'projectCard', card: CardName.TARDIGRADES, payment: Payment.of({megacredits: 4})});
     runAllActions(game);
     expect(player.cardsInHand.filter((card) => card.name === CardName.TARDIGRADES)).has.length(1);
     expect(player.playedCards.asArray().filter((card) => card.name === CardName.TARDIGRADES)).has.length(1);
@@ -81,7 +81,7 @@ describe('duplicate cards in play', () => {
   it('selling one copy keeps the other', () => {
     player.megaCredits = 0;
     const select = cast(new SellPatentsStandardProject().action(player), SelectCard<any>);
-    select.process({type: 'card', cards: [CardName.TARDIGRADES]}, player);
+    select.process({type: 'card', cards: [CardName.TARDIGRADES]});
     expect(player.megaCredits).eq(1);
     expect(player.cardsInHand.filter((card) => card.name === CardName.TARDIGRADES)).has.length(1);
   });

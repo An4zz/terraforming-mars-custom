@@ -44,7 +44,7 @@ describe('workshop game', () => {
       customCards: ids,
       customCardDefinitions: registry.definitionsFor(ids),
       customColoniesList: ['Outpost', 'Luna', 'Titan', 'Io', 'Ceres'] as any,
-      presetHands: {corporations: ['Mars Co-op' as CardName], preludes: ['Seed Bank' as CardName], projectCards: ['Greenhouse Grid', 'Microbe Vat'] as Array<CardName>},
+      presetHands: {corporations: ['Mars Co-op' as CardName], preludes: ['Seed Bank' as CardName], projectCards: ['Greenhouse Grid', 'Microbe Vat'] as unknown as Array<CardName>},
     });
     const projects = allProjectNames(game);
     expect(projects.filter((n) => n === 'Greenhouse Grid')).has.length(2);
@@ -67,7 +67,7 @@ describe('workshop game', () => {
       customCards: ids,
       customCardDefinitions: registry.definitionsFor(ids),
       customColoniesList: ['Outpost', 'Luna', 'Titan', 'Io', 'Ceres'] as any,
-      presetHands: {corporations: ['Mars Co-op' as CardName], preludes: ['Seed Bank' as CardName], projectCards: ['Greenhouse Grid', 'Microbe Vat'] as Array<CardName>},
+      presetHands: {corporations: ['Mars Co-op' as CardName], preludes: ['Seed Bank' as CardName], projectCards: ['Greenhouse Grid', 'Microbe Vat'] as unknown as Array<CardName>},
     });
     expect(alice0.dealtProjectCards[0].name).eq('Greenhouse Grid');
 
@@ -92,7 +92,7 @@ describe('workshop game', () => {
       responses: [
         {type: 'card', cards: ['Mars Co-op' as CardName]},
         {type: 'card', cards: ['Seed Bank' as CardName, secondPrelude]},
-        {type: 'card', cards: ['Greenhouse Grid', 'Microbe Vat'] as Array<CardName>},
+        {type: 'card', cards: ['Greenhouse Grid', 'Microbe Vat'] as unknown as Array<CardName>},
       ],
     }, alice);
     runAllActions(game);
@@ -119,7 +119,7 @@ describe('workshop game', () => {
     expect(registry.all()).is.empty;
     game = Game.deserialize(JSON.parse(JSON.stringify(game.serialize())));
     alice = game.getPlayerById(alice0.id);
-    const reloadedVat = alice.tableau.get('Microbe Vat' as CardName) as IActionCard & {resourceCount: number};
+    const reloadedVat = alice.tableau.get('Microbe Vat' as CardName) as unknown as IActionCard & {resourceCount: number};
     expect(reloadedVat.resourceCount).eq(2);
     expect(reloadedVat.canAct(alice)).is.true;
     reloadedVat.action(alice);

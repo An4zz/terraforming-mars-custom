@@ -6,6 +6,7 @@ import {statusCode} from '@/common/http/statusCode';
 import {DEFAULT_EXPANSIONS} from '@/common/cards/GameModule';
 import {GamePreset, GamePresetRequest} from '@/common/custom/GamePreset';
 import {NewGameConfig} from '@/common/game/NewGameConfig';
+import {CardName} from '@/common/cards/CardName';
 import {MockRequest, MockResponse} from '../../routes/HttpMocks';
 import {RouteTestScaffolding} from '../../routes/RouteTestScaffolding';
 
@@ -80,7 +81,7 @@ describe('ApiPresets', () => {
     req = new MockRequest();
     scaffolding = new RouteTestScaffolding(req);
     scaffolding.url = '/api/custom/presets';
-    await post({op: 'save', name: 'tuesday', config: config({bannedCards: ['Algae']})}, new MockResponse());
+    await post({op: 'save', name: 'tuesday', config: config({bannedCards: [CardName.ALGAE]})}, new MockResponse());
     const presets = await list();
     expect(presets).has.length(1);
     expect(presets[0].name).eq('tuesday');
@@ -94,7 +95,7 @@ describe('ApiPresets', () => {
   });
 
   it('returns warnings for unknown cards but still saves', async () => {
-    await post({op: 'save', name: 'Tuesday', config: config({bannedCards: ['Nope']})});
+    await post({op: 'save', name: 'Tuesday', config: config({bannedCards: ['Nope' as CardName]})});
     expect(res.statusCode).eq(statusCode.ok);
     expect(JSON.parse(res.content).warnings[0]).contains('Unknown card name');
     expect(await list()).has.length(1);
