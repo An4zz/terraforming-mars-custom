@@ -5,7 +5,8 @@ This repository is a custom fork of
 for a private group. It tracks upstream `main` and adds features that upstream would not carry.
 
 The plans for every custom feature, and the rules that keep the fork mergeable, are in
-[`docs/custom/`](docs/custom/README.md). Read that first.
+[`docs/custom/`](docs/custom/README.md). To run a server for your group, including the Discord
+integration, follow [`docs/custom/hosting.md`](docs/custom/hosting.md).
 
 ## Rules of the fork
 
@@ -39,8 +40,8 @@ Shorter lists are topped up at random; drafts are turned off for any category th
 
 ## Discord turn notifications
 
-Set `DISCORD_BOT_TOKEN` (direct messages) and/or `DISCORD_WEBHOOK_URL` (mentions in one channel)
-in `.env`; see `.env.sample`. Each player then opts in from the "Custom features" panel on their
+Setting up the Discord application, bot and webhook is part of hosting the server: follow
+[`docs/custom/hosting.md`](docs/custom/hosting.md) and run `npm run discord:check`. Each player then opts in from the "Custom features" panel on their
 player page with their Discord user id. A player is told once per prompt, not while they are
 actively playing, and at most once every 30 seconds. A server restart can repeat one message.
 

@@ -15,6 +15,8 @@ built until the plan is approved.
 | 5 | Preset hands | [05-preset-hands.md](05-preset-hands.md) | built |
 | 6 | Discord turn notifications | [06-discord-notifications.md](06-discord-notifications.md) | built |
 
+Hosting the fork, including the Discord integration, is described in [hosting.md](hosting.md).
+
 Suggested build order: 0, 1, 4, 5, 6, 3, 2. Presets, card pools and preset hands share the
 new-game form work and are small. Discord notifications and the action queue share the
 turn-start hook. The workshop is the largest and benefits from everything before it (its cards

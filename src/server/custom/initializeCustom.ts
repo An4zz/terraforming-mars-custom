@@ -8,5 +8,9 @@ import {TurnNotifier} from './discord/TurnNotifier';
  */
 export async function initializeCustom(): Promise<void> {
   await CustomStore.getInstance().initialize();
-  await TurnNotifier.getInstance().initialize();
+  const notifier = TurnNotifier.getInstance();
+  await notifier.initialize();
+  if (!notifier.client.dmAvailable && !notifier.client.channelAvailable) {
+    console.log('Discord turn notifications are off. Set DISCORD_BOT_TOKEN and/or DISCORD_WEBHOOK_URL (see docs/custom/hosting.md), then run `npm run discord:check`.');
+  }
 }

@@ -1,3 +1,5 @@
+> **This is a custom fork.** See [CUSTOM.md](CUSTOM.md) for the fork's features and [docs/custom/hosting.md](docs/custom/hosting.md) to host it with Discord notifications.
+
 # <a name="README"> Terraforming Mars Open-source
 
 <div align="center">
