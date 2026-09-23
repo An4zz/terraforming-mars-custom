@@ -102,7 +102,8 @@
     "test:client:watch": "vitest",
     "dev:client": "cross-env NODE_ENV=development webpack --watch",
     "dev:server": "cross-env NODE_ENV=development tsx watch --clear-screen=false src/server/server.ts",
-    "discord:check": "npx tsx scripts/discord-check.ts"
+    "discord:check": "npx tsx src/server/tools/discord_check.ts",
+    "discord:check:built": "node build/src/server/tools/discord_check.js"
   },
   "repository": {
     "type": "git",

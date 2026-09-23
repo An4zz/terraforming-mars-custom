@@ -4,6 +4,10 @@ This is the setup for a private server for your group. It covers the game server
 and the Discord integration (login prefill and turn notifications) as one procedure. Do the
 steps in order; the Discord check at the end tells you whether the integration works.
 
+Hosting on a Raspberry Pi at home? Read [hosting-raspberry-pi.md](hosting-raspberry-pi.md)
+alongside this page; it covers the Pi's build memory and publishing the site without port
+forwarding.
+
 ## 1. Prerequisites
 
 - A machine reachable by your friends over HTTPS (a small VPS is enough), with Docker and
@@ -99,6 +103,7 @@ npm run discord:check -- --send <your discord user id>
 ```
 
 The first command validates the token and webhook against Discord and prints the invite link.
+(From a built tree or inside the Docker image, use `npm run discord:check:built` instead.)
 The second also sends a test direct message and a test channel mention to you. Every line is
 `OK`, `WARN` or `FAIL` with what to do. Run it again after any change to `.env`.
 

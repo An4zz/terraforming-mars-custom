@@ -1,9 +1,10 @@
-// Checks the Discord notification setup from .env and prints what to fix.
+// Checks the Discord notification setup from the environment and prints what to fix.
 //
-//   npm run discord:check              -- validate the token and webhook
-//   npm run discord:check -- --send <discord user id>   -- also send test messages to that user
-import 'dotenv/config';
-import {checkDiscordSetup} from '../src/server/custom/discord/discordSetupCheck';
+//   npm run discord:check                                 -- from a checkout (uses tsx)
+//   npm run discord:check:built                           -- from a built tree or the Docker image
+//   ... -- --send <discord user id>                       -- also send test messages to that user
+import '@/server/init';
+import {checkDiscordSetup} from '../custom/discord/discordSetupCheck';
 
 async function main() {
   const args = process.argv.slice(2);

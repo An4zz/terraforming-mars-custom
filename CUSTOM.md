@@ -6,7 +6,8 @@ for a private group. It tracks upstream `main` and adds features that upstream w
 
 The plans for every custom feature, and the rules that keep the fork mergeable, are in
 [`docs/custom/`](docs/custom/README.md). To run a server for your group, including the Discord
-integration, follow [`docs/custom/hosting.md`](docs/custom/hosting.md).
+integration, follow [`docs/custom/hosting.md`](docs/custom/hosting.md) (and
+[`docs/custom/hosting-raspberry-pi.md`](docs/custom/hosting-raspberry-pi.md) for a Pi at home).
 
 ## Rules of the fork
 
