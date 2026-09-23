@@ -1,0 +1,27 @@
+import * as responses from '@/server/server/responses';
+import {Handler} from '@/server/routes/Handler';
+import {Context} from '@/server/routes/IHandler';
+import {Request} from '@/server/Request';
+import {Response} from '@/server/Response';
+import {CustomStatusModel} from '@/common/custom/CustomStatusModel';
+import {CustomStore} from '../store/CustomStore';
+
+/** Reports which custom features this server has enabled and how it stores their data. */
+export class ApiCustomStatus extends Handler {
+  public static readonly INSTANCE = new ApiCustomStatus();
+
+  private constructor() {
+    super();
+  }
+
+  public override get(_req: Request, res: Response, ctx: Context): Promise<void> {
+    const model: CustomStatusModel = {
+      store: CustomStore.getInstance().constructor.name,
+      features: {
+        presets: true,
+      },
+    };
+    responses.writeJson(res, ctx, model);
+    return Promise.resolve();
+  }
+}

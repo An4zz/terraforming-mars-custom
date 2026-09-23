@@ -16,6 +16,16 @@ The plans for every custom feature, and the rules that keep the fork mergeable, 
 3. Every feature keeps `npm run lint`, `npm run build` and `npm test` green.
 4. Upstream is merged, never rebased, so the shared history stays intact.
 
+## Where custom data lives
+
+Presets, workshop cards and Discord opt-ins are stored outside the game tables:
+
+- with SQLite or the local filesystem database: JSON files under `db/custom/<namespace>/`
+  (override the folder with `CUSTOM_STORE_DIR`). Back them up by copying that folder.
+- with PostgreSQL: the `custom_kv` table in the game database.
+
+`GET api/custom/status` reports which store is in use.
+
 ## Syncing with upstream
 
 ```

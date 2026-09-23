@@ -1,5 +1,5 @@
 import {JSONValue} from '@/common/Types';
-import {CustomStoreEntry, ICustomStore} from './ICustomStore';
+import {CustomStoreEntry, ICustomStore, isValidStoreKey} from './ICustomStore';
 
 /** An in-memory custom store, for tests. */
 export class MemoryCustomStore implements ICustomStore {
@@ -9,7 +9,13 @@ export class MemoryCustomStore implements ICustomStore {
     return Promise.resolve();
   }
 
-  private namespace(namespace: string): Map<string, JSONValue> {
+  private namespace(namespace: string, key?: string): Map<string, JSONValue> {
+    if (!isValidStoreKey(namespace)) {
+      throw new Error('Invalid namespace ' + namespace);
+    }
+    if (key !== undefined && !isValidStoreKey(key)) {
+      throw new Error('Invalid key ' + key);
+    }
     let map = this.data.get(namespace);
     if (map === undefined) {
       map = new Map();
@@ -19,7 +25,7 @@ export class MemoryCustomStore implements ICustomStore {
   }
 
   public get(namespace: string, key: string): Promise<JSONValue | undefined> {
-    return Promise.resolve(this.namespace(namespace).get(key));
+    return Promise.resolve(this.namespace(namespace, key).get(key));
   }
 
   public list(namespace: string): Promise<Array<CustomStoreEntry>> {
@@ -27,12 +33,12 @@ export class MemoryCustomStore implements ICustomStore {
   }
 
   public put(namespace: string, key: string, value: JSONValue): Promise<void> {
-    this.namespace(namespace).set(key, JSON.parse(JSON.stringify(value)));
+    this.namespace(namespace, key).set(key, JSON.parse(JSON.stringify(value)));
     return Promise.resolve();
   }
 
   public delete(namespace: string, key: string): Promise<void> {
-    this.namespace(namespace).delete(key);
+    this.namespace(namespace, key).delete(key);
     return Promise.resolve();
   }
 }

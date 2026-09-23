@@ -42,6 +42,7 @@ import {getHerokuIpAddress} from './heroku';
 import * as responses from './responses';
 import {EndGameLog} from '../routes/EndGameLog';
 import {UrlParams} from '../routes/UrlParams';
+import {CUSTOM_HANDLERS} from '../custom/routes/customHandlers'; // CUSTOM(foundation)
 
 const metrics = {
   request_count: new prometheus.Counter({
@@ -127,6 +128,7 @@ const handlers: Map<string, IHandler> = new Map(
     [paths.SPECTATOR, ServeApp.INSTANCE],
     ['styles.css', ServeAsset.INSTANCE],
     [paths.THE_END, ServeApp.INSTANCE],
+    ...CUSTOM_HANDLERS, // CUSTOM(foundation)
   ],
 );
 
