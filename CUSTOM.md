@@ -26,6 +26,12 @@ Presets, workshop cards and Discord opt-ins are stored outside the game tables:
 
 `GET api/custom/status` reports which store is in use.
 
+## Card pools
+
+The new game page's "Custom pool" panel sets how many copies of a project card or prelude are in
+the deck. Copies are full cards with their own resources. Effects that look up a card by name act
+on the first copy, and a selection prompt can pick only one copy at a time.
+
 ## Syncing with upstream
 
 ```

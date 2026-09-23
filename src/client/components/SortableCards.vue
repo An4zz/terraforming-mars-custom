@@ -6,7 +6,8 @@
     </label>
   </div>
   <div class="sortable-cards">
-    <div ref="draggers" :class="{ 'dragging': Boolean(dragCard) }" v-for="(card, index) in getSortedCards()" :key="card.name" draggable="true" @dragend="onDragEnd()" @dragstart="onDragStart(card.name)" @dragover.prevent="onDragOver(card.name, $event)">
+    <!-- CUSTOM(card-pools): copies share a name, so the key includes the position. -->
+    <div ref="draggers" :class="{ 'dragging': Boolean(dragCard) }" v-for="(card, index) in getSortedCards()" :key="card.name + index" draggable="true" @dragend="onDragEnd()" @dragstart="onDragStart(card.name)" @dragover.prevent="onDragOver(card.name, $event)">
       <div ref="cardbox" class="cardbox" @click="clickMethod">
         <Card :card="card"/>
         <div v-if="showReorder" class="reorder-banners-container">

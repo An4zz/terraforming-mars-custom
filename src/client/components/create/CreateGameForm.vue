@@ -488,6 +488,7 @@
                             </div>
                         </div>
 
+                        <CustomGameSettings v-model:cardCopies="cardCopies" /> <!-- CUSTOM(card-pools) -->
                         <PresetBar :getConfig="serializeSettings" :players="players" :playersCount="playersCount" :snapshot="formSnapshot" v-model:presetName="presetName" @load="loadPreset" /> <!-- CUSTOM(presets) -->
                         <div class="create-game-action">
                             <AppButton title="Create game" size="big" @click="createGame"/>
@@ -601,6 +602,8 @@ import {getColony} from '@/client/colonies/ClientColonyManifest';
 import {RULEBOOK_URLS, WIKI, WIKI_URLS} from '@/client/utils/WikiLinks';
 import {setDocumentTitle} from '@/client/utils/documentTitle';
 import PresetBar from '@/client/components/custom/PresetBar.vue'; // CUSTOM(presets)
+import CustomGameSettings from '@/client/components/custom/CustomGameSettings.vue'; // CUSTOM(card-pools)
+import {CardCopies, hasCardCopies} from '@/common/custom/CustomGameOptions'; // CUSTOM(card-pools)
 
 const REVISED_COUNT_ALGORITHM = false;
 const createGameSettingsStorage = new CreateGameSettingsStorage();
@@ -617,6 +620,7 @@ type FormModel = {
   uploading: boolean;
   previousViewport: string;
   presetName: string | undefined; // CUSTOM(presets)
+  cardCopies: CardCopies; // CUSTOM(card-pools)
 };
 
 export default defineComponent({
@@ -628,6 +632,7 @@ export default defineComponent({
       uploading: false,
       previousViewport: '',
       presetName: undefined, // CUSTOM(presets)
+      cardCopies: {}, // CUSTOM(card-pools)
     };
   },
   components: {
@@ -639,6 +644,7 @@ export default defineComponent({
     PreludesFilter,
     PreferencesIcon,
     PresetBar, // CUSTOM(presets)
+    CustomGameSettings, // CUSTOM(card-pools)
   },
   watch: {
     allOfficialExpansions(value: boolean) {
@@ -816,6 +822,7 @@ export default defineComponent({
         preludeToggled: false,
         uploading: false,
         presetName: undefined, // CUSTOM(presets)
+        cardCopies: {}, // CUSTOM(card-pools)
       });
       nextTick(() => {
         const refs = this.typedRefs;
@@ -1293,6 +1300,7 @@ export default defineComponent({
         startingCeos,
         startingPreludes,
         presetName: this.presetName, // CUSTOM(presets)
+        cardCopies: hasCardCopies(this.cardCopies) ? this.cardCopies : undefined, // CUSTOM(card-pools)
       };
     },
     async createGame() {

@@ -7,6 +7,7 @@ import {RandomMAOptionType} from '../ma/RandomMAOptionType';
 import {AgendaStyle} from '../turmoil/Types';
 import {GameId} from '../Types';
 import {Expansion} from '../cards/GameModule';
+import {CardCopies} from '../custom/CustomGameOptions'; // CUSTOM(card-pools)
 
 export type BoardNameType = BoardName | RandomBoardOption;
 
@@ -83,4 +84,6 @@ export interface NewGameConfig {
   startingPreludes: number;
   /** The name of the preset the host started from, if any. */
   presetName?: string; // CUSTOM(presets)
+  /** Total copies of chosen project cards and preludes in the deck. */
+  cardCopies?: CardCopies; // CUSTOM(card-pools)
 }

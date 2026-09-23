@@ -7,6 +7,7 @@ import {RandomMAOptionType} from '../../common/ma/RandomMAOptionType';
 import {AgendaStyle} from '../../common/turmoil/Types';
 import {Expansion} from '../../common/cards/GameModule';
 import {EscapeVelocityOptions} from '../../common/game/NewGameConfig';
+import {CardCopies} from '../../common/custom/CustomGameOptions'; // CUSTOM(card-pools)
 
 export type GameOptions = {
   boardName: BoardName;
@@ -76,6 +77,8 @@ export type GameOptions = {
   twoCorpsVariant: boolean;
   /** The name of the preset the host started from, if any. */
   presetName?: string; // CUSTOM(presets)
+  /** Total copies of chosen project cards and preludes in the deck. */
+  cardCopies?: CardCopies; // CUSTOM(card-pools)
 }
 
 export const DEFAULT_GAME_OPTIONS: GameOptions = {

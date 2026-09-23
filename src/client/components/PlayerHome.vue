@@ -54,7 +54,7 @@
 
       <div class="player_home_block player_home_block--hand" v-if="playerView.draftedCards.length > 0">
         <DynamicTitle title="Drafted cards" :color="thisPlayer.color" />
-        <div v-for="card in playerView.draftedCards" :key="card.name" class="cardbox">
+        <div v-for="(card, index) in playerView.draftedCards" :key="card.name + index" class="cardbox"> <!-- CUSTOM(card-pools) -->
           <Card :card="card"/>
         </div>
       </div>
@@ -97,7 +97,7 @@
         <div v-for="card in getCardsByType(thisPlayer.tableau, [CardType.CEO])" :key="card.name" class="cardbox">
             <Card :card="card" :actionUsed="isCardActivated(card, thisPlayer)" :cubeColor="thisPlayer.color"/>
         </div>
-        <div v-show="isVisible('ACTIVE')" v-for="card in activeTableauCards" :key="card.name" class="cardbox">
+        <div v-show="isVisible('ACTIVE')" v-for="(card, index) in activeTableauCards" :key="card.name + index" class="cardbox"> <!-- CUSTOM(card-pools) -->
             <Card :card="card" :actionUsed="isCardActivated(card, thisPlayer)" :cubeColor="thisPlayer.color"/>
         </div>
 
@@ -110,7 +110,7 @@
       <div v-if="thisPlayer.selfReplicatingRobotsCards.length > 0" class="player_home_block">
         <DynamicTitle title="Self-replicating Robots cards" :color="thisPlayer.color"/>
         <div>
-          <div v-for="card in thisPlayer.selfReplicatingRobotsCards" :key="card.name" class="cardbox">
+          <div v-for="(card, index) in thisPlayer.selfReplicatingRobotsCards" :key="card.name + index" class="cardbox"> <!-- CUSTOM(card-pools) -->
             <Card :card="card"/>
           </div>
         </div>

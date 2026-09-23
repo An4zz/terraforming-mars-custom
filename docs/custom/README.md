@@ -11,7 +11,7 @@ built until the plan is approved.
 | 1 | Game presets | [01-game-presets.md](01-game-presets.md) | built |
 | 2 | Custom card workshop | [02-card-workshop.md](02-card-workshop.md) | planned |
 | 3 | Action queue | [03-action-queue.md](03-action-queue.md) | planned |
-| 4 | Custom card pools (duplicates) | [04-card-pools.md](04-card-pools.md) | planned |
+| 4 | Custom card pools (duplicates) | [04-card-pools.md](04-card-pools.md) | built |
 | 5 | Preset hands | [05-preset-hands.md](05-preset-hands.md) | planned |
 | 6 | Discord turn notifications | [06-discord-notifications.md](06-discord-notifications.md) | planned |
 
@@ -72,6 +72,8 @@ across all six features, with the reason, are listed in each plan and summarized
 | `src/common/game/NewGameConfig.ts`, `src/server/game/GameOptions.ts`, `src/server/routes/ApiCreateGame.ts` | three optional game options (workshop cards, card copies, preset hands) |
 | `src/client/components/create/CreateGameForm.vue`, `CreateGameModel.ts`, `defaultCreateGameModel.ts` | one embedded `<CustomGameSettings>` panel and the preset bar |
 | `src/server/GameCards.ts` | add workshop cards and extra copies to decks |
+| `src/server/cards/PlayedCards.ts` | allow two copies of a card in a tableau |
+| `src/client/components/StackedCards.vue`, `SortableCards.vue`, `SelectCard.vue`, `SelectProjectCardToPlay.vue` | list keys that tolerate copies |
 | `src/server/Game.ts` | preset hands at dealing time |
 | `src/server/Player.ts`, `src/server/SerializedPlayer.ts` | action queue field and two hooks (turn start, waiting-for) |
 | `src/server/createCard.ts`, `src/server/colonies/ColonyDealer.ts`, `ColonyDeserializer.ts` | fall back to workshop cards and colonies |

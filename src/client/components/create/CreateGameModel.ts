@@ -5,6 +5,7 @@ import {GameId} from '@/common/Types';
 import {AgendaStyle} from '@/common/turmoil/Types';
 import {BoardNameType, NewPlayerModel} from '@/common/game/NewGameConfig';
 import {Expansion} from '@/common/cards/GameModule';
+import {CardCopies} from '@/common/custom/CustomGameOptions'; // CUSTOM(card-pools)
 
 export type CreateGameModel = {
   /* A checkbox when selected selects all official expansions */
@@ -62,4 +63,5 @@ export type CreateGameModel = {
   twoCorpsVariant: boolean;
   undoOption: boolean;
   presetName?: string; // CUSTOM(presets)
+  cardCopies?: CardCopies; // CUSTOM(card-pools)
 }

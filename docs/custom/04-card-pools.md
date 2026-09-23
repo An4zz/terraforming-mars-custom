@@ -66,6 +66,18 @@ It lives inside the `<CustomGameSettings>` panel on the new-game form and emits 
 (2 lines), `CreateGameModel.ts`/`defaultCreateGameModel.ts`/`CreateGameForm.vue`
 (field + serialize + panel), `PlayerHome.vue` (list keys).
 
+## Deviations found while building
+
+- `PlayedCards` (`src/server/cards/PlayedCards.ts`) rejected a second card with the same name, so
+  a player could never play both copies. `push` now accepts copies (`get(name)` keeps returning
+  the first) and `remove` re-points the name index at a remaining copy. Both changes are marked
+  `CUSTOM(card-pools)` and covered by `tests/custom/deck/duplicatesInPlay.spec.ts`.
+- List keys were changed in `StackedCards.vue`, `SortableCards.vue`, `SelectCard.vue` and
+  `SelectProjectCardToPlay.vue` as well as `PlayerHome.vue`, since all of them render hands or
+  tableaus that can now hold copies.
+- Selecting cards in the UI is still by name, so two copies cannot be selected together in one
+  prompt (for example selling both at once); selling one at a time works.
+
 ## Execution tasks
 
 Build:

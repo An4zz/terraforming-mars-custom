@@ -1,6 +1,7 @@
 <template>
     <div class="cardbox">
-        <div v-for="(card, index) in cards" :key="card.name" :class="{'cards-stack':(index > 0),'cards-stack-first':(index === 0) }">
+        <!-- CUSTOM(card-pools): copies share a name, so the key includes the position. -->
+        <div v-for="(card, index) in cards" :key="card.name + index" :class="{'cards-stack':(index > 0),'cards-stack-first':(index === 0) }">
             <Card :card="card" />
         </div>
     </div>
