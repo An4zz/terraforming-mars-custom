@@ -4,6 +4,7 @@ export const paths = {
   API_CREATEGAME: 'api/creategame',
   API_CUSTOM_DISCORD: 'api/custom/discord', // CUSTOM(discord)
   API_CUSTOM_PRESETS: 'api/custom/presets', // CUSTOM(presets)
+  API_CUSTOM_QUEUE: 'api/custom/queue', // CUSTOM(action-queue)
   API_CUSTOM_STATUS: 'api/custom/status', // CUSTOM(foundation)
   API_GAME: 'api/game',
   API_GAME_HISTORY: 'api/game/history',

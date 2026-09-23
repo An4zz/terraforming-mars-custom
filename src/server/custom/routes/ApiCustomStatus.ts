@@ -20,6 +20,7 @@ export class ApiCustomStatus extends Handler {
       store: CustomStore.getInstance().constructor.name,
       features: {
         presets: true,
+        actionQueue: true,
         discordNotifications: TurnNotifier.getInstance().client.dmAvailable || TurnNotifier.getInstance().client.channelAvailable,
       },
     };

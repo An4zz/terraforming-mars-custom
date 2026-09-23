@@ -38,6 +38,15 @@ on the first copy, and a selection prompt can pick only one copy at a time.
 The same panel sets the project cards, corporations, preludes and CEOs every player starts with.
 Shorter lists are topped up at random; drafts are turned off for any category that has a list.
 
+## Action queue
+
+From the "Custom features" panel on the player page, queue actions (play a card, use a card
+action, a standard project, claim a milestone, fund an award, convert heat, end turn, pass). They
+run in order at the start of each of your turns, paying with megacredits first and then steel or
+titanium where allowed, until one is no longer possible; then the queue stops and tells you why
+(in the log, and on Discord if you opted in). Choices inside an action, such as where a tile
+goes, are still yours; the queue continues after you answer.
+
 ## Discord turn notifications
 
 Setting up the Discord application, bot and webhook is part of hosting the server: follow

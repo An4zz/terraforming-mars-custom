@@ -80,6 +80,8 @@ import {PlayedCards} from './cards/PlayedCards';
 import {From} from './logs/From';
 import {SelectStandardProjectToPlay} from './inputs/SelectStandardProjectToPlay';
 import {TurnNotifier} from './custom/discord/TurnNotifier'; // CUSTOM(discord)
+import {ActionQueueRunner} from './custom/queue/ActionQueueRunner'; // CUSTOM(action-queue)
+import {ActionQueueState, emptyActionQueue} from '../common/custom/QueuedAction'; // CUSTOM(action-queue)
 
 const THROW_STATE_ERRORS = Boolean(process.env.THROW_STATE_ERRORS);
 const DEFAULT_GLOBAL_PARAMETER_STEPS = {
@@ -144,6 +146,7 @@ export class Player implements IPlayer {
 
   public timer: Timer = Timer.newInstance();
   public autopass = false;
+  public actionQueue: ActionQueueState = emptyActionQueue(); // CUSTOM(action-queue)
 
   // Turmoil
   public turmoilPolicyActionUsed: boolean = false;
@@ -1553,6 +1556,7 @@ export class Player implements IPlayer {
       this.incrementActionsTaken();
       this.takeAction();
     }));
+    ActionQueueRunner.maybeRun(this); // CUSTOM(action-queue)
   }
 
   private incrementActionsTaken(): void {
@@ -1857,6 +1861,7 @@ export class Player implements IPlayer {
       alliedParty: this._alliedParty,
       draftHand: this.draftHand.map(toName),
       autoPass: this.autopass,
+      actionQueue: this.actionQueue, // CUSTOM(action-queue)
       globalParameterSteps: this.globalParameterSteps,
     };
 
@@ -1939,6 +1944,7 @@ export class Player implements IPlayer {
     player.playedCards.deserialize(d.playedCards);
     player.draftedCards = cardsFromJSON(d.draftedCards);
     player.autopass = d.autoPass ?? false;
+    player.actionQueue = d.actionQueue ?? emptyActionQueue(); // CUSTOM(action-queue)
     player.preservationProgram = d.preservationProgram ?? false;
     // TODO(kberg): remove ?? 0 by 2026-11-01
     player.trThisGeneration = d.trThisGeneration ?? 0;

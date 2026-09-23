@@ -7,6 +7,7 @@
       </a>
     </div>
     <div v-show="open">
+      <ActionQueuePanel v-if="open" :playerId="playerId" :refreshKey="refreshKey" />
       <DiscordOptInPanel v-if="open" :playerId="playerId" />
     </div>
   </div>
@@ -15,6 +16,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue';
 import DiscordOptInPanel from './DiscordOptInPanel.vue';
+import ActionQueuePanel from './ActionQueuePanel.vue';
 
 /**
  * The fork's additions to the player page, gathered in one collapsible panel.
@@ -24,11 +26,16 @@ import DiscordOptInPanel from './DiscordOptInPanel.vue';
  */
 export default defineComponent({
   name: 'CustomPlayerPanel',
-  components: {DiscordOptInPanel},
+  components: {ActionQueuePanel, DiscordOptInPanel},
   props: {
     playerId: {
       type: String,
       required: true,
+    },
+    /** Changes whenever the game state changed, so the queue reloads. */
+    refreshKey: {
+      type: Number,
+      default: 0,
     },
   },
   data() {

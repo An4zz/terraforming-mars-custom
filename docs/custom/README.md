@@ -10,7 +10,7 @@ built until the plan is approved.
 | 0 | Fork foundation (upstream sync, isolation rules, shared store) | this file, below | built |
 | 1 | Game presets | [01-game-presets.md](01-game-presets.md) | built |
 | 2 | Custom card workshop | [02-card-workshop.md](02-card-workshop.md) | planned |
-| 3 | Action queue | [03-action-queue.md](03-action-queue.md) | planned |
+| 3 | Action queue | [03-action-queue.md](03-action-queue.md) | built |
 | 4 | Custom card pools (duplicates) | [04-card-pools.md](04-card-pools.md) | built |
 | 5 | Preset hands | [05-preset-hands.md](05-preset-hands.md) | built |
 | 6 | Discord turn notifications | [06-discord-notifications.md](06-discord-notifications.md) | built |

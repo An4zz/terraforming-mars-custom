@@ -12,7 +12,7 @@ describe('CustomPlayerPanel', () => {
     originalFetch = global.fetch;
     global.fetch = (() => {
       fetches++;
-      return Promise.resolve({ok: true, json: () => Promise.resolve({dmAvailable: false, channelAvailable: false})} as Response);
+      return Promise.resolve({ok: true, json: () => Promise.resolve({dmAvailable: false, channelAvailable: false, queue: [], paused: false, executed: [], options: {cardsInHand: [], actionCards: [], standardProjects: [], milestones: [], awards: []}})} as Response);
     }) as typeof global.fetch;
   });
 
@@ -26,6 +26,7 @@ describe('CustomPlayerPanel', () => {
     expect(wrapper.find('[data-test=discord-panel]').exists()).is.false;
     await wrapper.find('[data-test=toggle]').trigger('click');
     expect(wrapper.find('[data-test=discord-panel]').exists()).is.true;
-    expect(fetches).eq(1);
+    expect(wrapper.find('[data-test=queue-panel]').exists()).is.true;
+    expect(fetches).eq(2);
   });
 });

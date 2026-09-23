@@ -115,6 +115,23 @@ becomes available at the right time. Escape Velocity timers: the timer stops/sta
 "end turn" option exists; a queued `endTurn` stops the queue with "End turn is not available in
 fast mode".
 
+## Deviations found while building
+
+- **Convert plants** is a space choice itself (the menu entry is a `SelectSpace`), so the queue
+  cannot take it. Queuing it stops the queue with a note to place the greenery by hand; the
+  menu labels it that way.
+- **Payment prompts** raised by a queued action (awards, milestones) are answered automatically
+  with the same rules as card payments, so they need no click.
+- **Turn boundaries**: a queue runs across turns. Two actions end a normal turn and the rest
+  waits for the next one; when every opponent has passed, the game lets a player keep acting
+  and so does the queue.
+- **Undo** is detected by comparing the game's undo count with the one recorded when the queue
+  was saved or resumed; a mismatch pauses the queue with a reason. Saving or resuming the queue
+  records the current count.
+- **Saving or resuming** runs the queue immediately when it is already the player's turn.
+- The queue is stored with the game and saved at the game's next save point (each action);
+  a queue set and then a server restart before any action is lost, like any unsaved input.
+
 ## Execution tasks
 
 Build:

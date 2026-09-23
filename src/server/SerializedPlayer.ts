@@ -8,6 +8,7 @@ import {GlobalParameter} from '../common/GlobalParameter';
 import {DiscordId} from './server/auth/discord';
 import {UnderworldPlayerData} from '../common/underworld/UnderworldPlayerData';
 import {DeltaProjectPlayerModel} from '../common/models/DeltaProjectPlayerModel';
+import {ActionQueueState} from '../common/custom/QueuedAction'; // CUSTOM(action-queue)
 
 interface DeprecatedFields {
 }
@@ -19,6 +20,7 @@ export interface SerializedPlayer extends DeprecatedFields{
   actionsThisGeneration: Array<CardName>;
   alliedParty: AlliedParty | undefined;
   autoPass: boolean;
+  actionQueue?: ActionQueueState; // CUSTOM(action-queue)
   beginner: boolean;
   canUseHeatAsMegaCredits: boolean;
   canUseTitaniumAsMegacredits: boolean;
