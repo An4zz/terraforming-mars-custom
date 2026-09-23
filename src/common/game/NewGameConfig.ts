@@ -88,4 +88,6 @@ export interface NewGameConfig {
   cardCopies?: CardCopies; // CUSTOM(card-pools)
   /** Starting cards every player is dealt instead of a random draw. */
   presetHands?: PresetHands; // CUSTOM(preset-hands)
+  /** Ids of workshop cards and colonies included in this game. */
+  customCards?: Array<string>; // CUSTOM(workshop)
 }

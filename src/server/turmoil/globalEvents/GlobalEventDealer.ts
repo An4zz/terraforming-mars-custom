@@ -58,6 +58,7 @@ export class GlobalEventDealer {
     // TODO(kberg): Merge with GameCards.
     const includes: Record<GameModule, boolean> = {
       base: true,
+      custom: false, // CUSTOM(workshop): the workshop has no global events.
       corpera: gameOptions.corporateEra,
       prelude: gameOptions.preludeExtension,
       prelude2: gameOptions.prelude2Expansion,

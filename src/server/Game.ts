@@ -44,6 +44,7 @@ import {AresData} from '../common/ares/AresData';
 import {GameSetup, normalizeBoardName} from './GameSetup';
 import {GameCards} from './GameCards';
 import {applyPresetHands} from './custom/deck/presetHands'; // CUSTOM(preset-hands)
+import {CustomCardRegistry} from './custom/cards/CustomCardRegistry'; // CUSTOM(workshop)
 import {GlobalParameter} from '../common/GlobalParameter';
 import {AresSetup} from './ares/AresSetup';
 import {MoonData} from './moon/MoonData';
@@ -1700,6 +1701,11 @@ export class Game implements IGame, Logger {
   }
 
   public static deserialize(d: SerializedGame): Game {
+    // CUSTOM(workshop): the game's own workshop definitions win while its cards are rebuilt.
+    return CustomCardRegistry.getInstance().withGameDefinitions(d.gameOptions.customCardDefinitions, () => Game.deserializeInternal(d));
+  }
+
+  private static deserializeInternal(d: SerializedGame): Game {
     const gameOptions = d.gameOptions;
     gameOptions.boardName = normalizeBoardName(gameOptions.boardName);
     const players = d.players.map((element) => Player.deserialize(element));

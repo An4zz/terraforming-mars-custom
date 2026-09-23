@@ -18,6 +18,7 @@ import {Response} from '../Response';
 import {QuotaConfig, QuotaHandler} from '../server/QuotaHandler';
 import {durationToMilliseconds} from '../utils/durations';
 import {readBody} from './readBody';
+import {CustomCardRegistry} from '../custom/cards/CustomCardRegistry'; // CUSTOM(workshop)
 
 function parseQuotaConfig(struct: any): QuotaConfig {
   let {limit} = struct;
@@ -168,6 +169,8 @@ export class ApiCreateGame extends Handler {
         presetName: gameReq.presetName, // CUSTOM(presets)
         cardCopies: gameReq.cardCopies, // CUSTOM(card-pools)
         presetHands: gameReq.presetHands, // CUSTOM(preset-hands)
+        customCards: gameReq.customCards, // CUSTOM(workshop)
+        customCardDefinitions: CustomCardRegistry.getInstance().definitionsFor(gameReq.customCards), // CUSTOM(workshop)
         starWarsExpansion: gameReq.expansions.starwars,
         turmoilExtension: gameReq.expansions.turmoil,
         twoCorpsVariant: gameReq.twoCorpsVariant,

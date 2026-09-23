@@ -24,7 +24,7 @@ describe('ApiCustomStatus', () => {
     scaffolding.url = '/api/custom/status';
     await scaffolding.get(ApiCustomStatus.INSTANCE, res);
     expect(res.statusCode).eq(statusCode.ok);
-    expect(JSON.parse(res.content)).deep.eq({store: 'MemoryCustomStore', features: {presets: true, actionQueue: true, discordNotifications: false}});
+    expect(JSON.parse(res.content)).deep.eq({store: 'MemoryCustomStore', features: {presets: true, actionQueue: true, workshop: true, discordNotifications: false}});
   });
 
   it('rejects POST', async () => {

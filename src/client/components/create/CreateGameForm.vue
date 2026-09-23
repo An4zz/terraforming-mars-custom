@@ -488,7 +488,7 @@
                             </div>
                         </div>
 
-                        <CustomGameSettings v-model:cardCopies="cardCopies" v-model:presetHands="presetHands" :initialDraft="initialDraft" :preludeDraft="preludeDraftVariant === true" :ceosDraft="ceosDraftVariant === true" /> <!-- CUSTOM(card-pools, preset-hands) -->
+                        <CustomGameSettings v-model:cardCopies="cardCopies" v-model:presetHands="presetHands" v-model:customCards="customCards" :initialDraft="initialDraft" :preludeDraft="preludeDraftVariant === true" :ceosDraft="ceosDraftVariant === true" /> <!-- CUSTOM(card-pools, preset-hands) -->
                         <PresetBar :getConfig="serializeSettings" :players="players" :playersCount="playersCount" :snapshot="formSnapshot" v-model:presetName="presetName" @load="loadPreset" /> <!-- CUSTOM(presets) -->
                         <div class="create-game-action">
                             <AppButton title="Create game" size="big" @click="createGame"/>
@@ -622,6 +622,7 @@ type FormModel = {
   presetName: string | undefined; // CUSTOM(presets)
   cardCopies: CardCopies; // CUSTOM(card-pools)
   presetHands: PresetHands; // CUSTOM(preset-hands)
+  customCards: Array<string>; // CUSTOM(workshop)
 };
 
 export default defineComponent({
@@ -635,6 +636,7 @@ export default defineComponent({
       presetName: undefined, // CUSTOM(presets)
       cardCopies: {}, // CUSTOM(card-pools)
       presetHands: {}, // CUSTOM(preset-hands)
+      customCards: [], // CUSTOM(workshop)
     };
   },
   components: {
@@ -826,6 +828,7 @@ export default defineComponent({
         presetName: undefined, // CUSTOM(presets)
         cardCopies: {}, // CUSTOM(card-pools)
         presetHands: {}, // CUSTOM(preset-hands)
+        customCards: [], // CUSTOM(workshop)
       });
       nextTick(() => {
         const refs = this.typedRefs;
@@ -1305,6 +1308,7 @@ export default defineComponent({
         presetName: this.presetName, // CUSTOM(presets)
         cardCopies: hasCardCopies(this.cardCopies) ? this.cardCopies : undefined, // CUSTOM(card-pools)
         presetHands: hasPresetHands(this.presetHands) ? this.presetHands : undefined, // CUSTOM(preset-hands)
+        customCards: this.customCards.length > 0 ? this.customCards : undefined, // CUSTOM(workshop)
       };
     },
     async createGame() {

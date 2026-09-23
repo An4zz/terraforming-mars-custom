@@ -1,7 +1,7 @@
 <template>
     <!-- <div :class="recedeIfInactive"> -->
     <!-- Show the background, tooltip, and other setup -->
-    <div class="filterDiv colony-card colonies tooltip tooltip-bottom" :class="backgroundClass" :data-tooltip="tooltip" v-i18n>
+    <div class="filterDiv colony-card colonies tooltip tooltip-bottom" :class="backgroundClass" :style="customBackgroundStyle" :data-tooltip="tooltip" v-i18n> <!-- CUSTOM(workshop): :style -->
 
     <!-- Show colony ship if somebody is visiting -->
     <div v-if="colony.visitor !== undefined" class="colony-spaceship">
@@ -124,6 +124,7 @@
 <script lang="ts">
 
 import {defineComponent} from 'vue';
+import {customColonyImage} from '@/client/custom/customContent'; // CUSTOM(workshop)
 
 import {ColonyModel} from '@/common/models/ColonyModel';
 import {ColonyName} from '@/common/colonies/ColonyName';
@@ -164,6 +165,11 @@ export default defineComponent({
     },
     backgroundClass(): string {
       return this.colony.name.replace(' ', '-') + '-background';
+    },
+    // CUSTOM(workshop): a workshop colony's own picture.
+    customBackgroundStyle(): Record<string, string> | undefined {
+      const image = customColonyImage(this.colony.name);
+      return image === undefined ? undefined : {backgroundImage: `url(${image})`, backgroundSize: 'cover'};
     },
     tooltip(): string {
       const descriptions = [this.metadata.build, this.metadata.trade, this.metadata.colony].map((b) => b.description);

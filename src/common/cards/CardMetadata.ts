@@ -12,4 +12,6 @@ export type CardMetadata = {
   description?: string | CardRenderDescription;
   renderData?: CardComponent;
   victoryPoints?: number | CardRenderDynamicVictoryPoints;
+  /** A picture shown on the card, as a data URL. Only workshop cards have one. */
+  image?: string; // CUSTOM(workshop)
 }

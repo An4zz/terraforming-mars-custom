@@ -9,7 +9,7 @@ built until the plan is approved.
 |---|---------|------|--------|
 | 0 | Fork foundation (upstream sync, isolation rules, shared store) | this file, below | built |
 | 1 | Game presets | [01-game-presets.md](01-game-presets.md) | built |
-| 2 | Custom card workshop | [02-card-workshop.md](02-card-workshop.md) | planned |
+| 2 | Custom card workshop | [02-card-workshop.md](02-card-workshop.md) | built |
 | 3 | Action queue | [03-action-queue.md](03-action-queue.md) | built |
 | 4 | Custom card pools (duplicates) | [04-card-pools.md](04-card-pools.md) | built |
 | 5 | Preset hands | [05-preset-hands.md](05-preset-hands.md) | built |
@@ -80,6 +80,8 @@ across all six features, with the reason, are listed in each plan and summarized
 | `src/server/Player.ts`, `src/server/SerializedPlayer.ts` | action queue field and two hooks (turn start, waiting-for) |
 | `src/server/createCard.ts`, `src/server/colonies/ColonyDealer.ts`, `ColonyDeserializer.ts` | fall back to workshop cards and colonies |
 | `src/server/cards/Card.ts` | evict a cached card definition when a workshop card is edited |
+| `src/common/cards/GameModule.ts`, `src/server/turmoil/globalEvents/GlobalEventDealer.ts`, `src/client/components/cardlist/CardListModel.ts`, `src/client/utils/WikiLinks.ts` | the `custom` module name for workshop cards |
+| `src/client/main.ts`, `src/client/components/StartScreen.vue` | load workshop cards before the app mounts; link to the workshop |
 | `src/client/cards/ClientCardManifest.ts`, `src/client/colonies/ClientColonyManifest.ts` | register workshop cards on the client |
 | `src/client/components/card/Card.vue` | show a workshop card's picture |
 | `src/client/components/PlayerHome.vue` | one embedded `<CustomPlayerPanel>` (queue + Discord opt-in) |

@@ -5,6 +5,7 @@ export type CustomStatusModel = {
   features: {
     presets: boolean;
     actionQueue: boolean;
+    workshop: boolean;
     /** True when the server can send Discord turn notifications. */
     discordNotifications: boolean;
   };

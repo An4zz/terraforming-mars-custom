@@ -168,15 +168,12 @@ function toCardType(definition: CustomCardDefinition): CardType {
 
 /** Builds the metadata (description, render data, victory points) the client uses to draw the card. */
 export function toMetadata(definition: CustomCardDefinition): CardMetadata {
+  // Victory points are left to the card base class, which fills `metadata.victoryPoints` itself.
   const metadata: CardMetadata = {
     cardNumber: 'W-' + definition.id,
     description: definition.description,
     renderData: renderCustomCard(definition),
   };
-  const vp = toVictoryPoints(definition.victoryPoints);
-  if (typeof vp === 'number') {
-    metadata.victoryPoints = vp;
-  }
   return metadata;
 }
 

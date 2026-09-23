@@ -27,6 +27,15 @@ Presets, workshop cards and Discord opt-ins are stored outside the game tables:
 
 `GET api/custom/status` reports which store is in use.
 
+## Card workshop
+
+`/workshop` designs project cards, corporations, preludes and colonies from building blocks
+(production, resources, TR, global steps, cards, tiles, card resources, requirements, victory
+points, an action with a price) plus a picture, with a live preview. Saved cards are ticked on
+the new game page under "Custom pool" and then shuffled into the right deck. Example definitions
+to import are in `docs/custom/examples/`. A running game keeps the version of a card it started
+with; the workshop's current version is what the client draws.
+
 ## Card pools
 
 The new game page's "Custom pool" panel sets how many copies of a project card or prelude are in

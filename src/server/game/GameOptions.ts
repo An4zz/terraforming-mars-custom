@@ -8,6 +8,7 @@ import {AgendaStyle} from '../../common/turmoil/Types';
 import {Expansion} from '../../common/cards/GameModule';
 import {EscapeVelocityOptions} from '../../common/game/NewGameConfig';
 import {CardCopies, PresetHands} from '../../common/custom/CustomGameOptions'; // CUSTOM(card-pools, preset-hands)
+import {CustomCardDefinition} from '../../common/custom/CustomCardDefinition'; // CUSTOM(workshop)
 
 export type GameOptions = {
   boardName: BoardName;
@@ -81,6 +82,10 @@ export type GameOptions = {
   cardCopies?: CardCopies; // CUSTOM(card-pools)
   /** Starting cards every player is dealt instead of a random draw. */
   presetHands?: PresetHands; // CUSTOM(preset-hands)
+  /** Ids of workshop cards and colonies included in this game. */
+  customCards?: Array<string>; // CUSTOM(workshop)
+  /** The workshop definitions this game uses, embedded so it survives later edits and deletions. */
+  customCardDefinitions?: Array<CustomCardDefinition>; // CUSTOM(workshop)
 }
 
 export const DEFAULT_GAME_OPTIONS: GameOptions = {

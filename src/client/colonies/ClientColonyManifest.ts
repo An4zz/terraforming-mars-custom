@@ -8,6 +8,13 @@ const colonies: Map<ColonyName, ColonyMetadata> = new Map();
   colonies.set(colony.name, colony);
 });
 
+/** Adds or replaces colonies at runtime. Used for workshop colonies. */
+export function addColonies(newColonies: Iterable<ColonyMetadata>): void { // CUSTOM(workshop)
+  for (const colony of newColonies) {
+    colonies.set(colony.name, colony);
+  }
+}
+
 export function allColonyNames() {
   return colonies.keys();
 }

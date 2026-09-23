@@ -21,6 +21,7 @@ export class ApiCustomStatus extends Handler {
       features: {
         presets: true,
         actionQueue: true,
+        workshop: true,
         discordNotifications: TurnNotifier.getInstance().client.dmAvailable || TurnNotifier.getInstance().client.channelAvailable,
       },
     };

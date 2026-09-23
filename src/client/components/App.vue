@@ -43,6 +43,7 @@
       <AdminHome v-else-if="screen === 'admin'"/>
       <LoginHome v-else-if="screen === 'login-home'"/>
       <Help v-else-if="screen === 'help'"/>
+      <Workshop v-else-if="screen === 'workshop'"/> <!-- CUSTOM(workshop) -->
     </div>
     <div class="notice" v-i18n>
       Not affiliated with FryxGames, Asmodee Digital or Steam in any way.
@@ -66,6 +67,7 @@ const LoadGameForm = defineAsyncComponent(() => import(/* webpackChunkName: "loa
 const PlayerHome = defineAsyncComponent(() => import(/* webpackChunkName: "player-home" */ '@/client/components/PlayerHome.vue'));
 const SpectatorHome = defineAsyncComponent(() => import(/* webpackChunkName: "spectator-home" */ '@/client/components/SpectatorHome.vue'));
 const StartScreen = defineAsyncComponent(() => import(/* webpackChunkName: "start-screen" */ '@/client/components/StartScreen.vue'));
+const Workshop = defineAsyncComponent(() => import(/* webpackChunkName: "workshop" */ '@/client/components/custom/workshop/Workshop.vue')); // CUSTOM(workshop)
 import {$t, setTranslationContext} from '@/client/directives/i18n';
 import {paths} from '@/common/app/paths';
 import {PlayerViewModel, ViewModel} from '@/common/models/PlayerModel';
@@ -89,7 +91,8 @@ type Screen = 'admin' |
             'player-home' |
             'spectator-home' |
             'start-screen' |
-            'the-end';
+            'the-end' |
+            'workshop'; // CUSTOM(workshop)
 export type MainAppData = {
     screen: Screen;
     /**
@@ -154,6 +157,7 @@ export default defineComponent({
     Help,
     AdminHome,
     LoginHome,
+    Workshop, // CUSTOM(workshop)
   },
   methods: {
     showAlert(title: string, message: string, cb: () => void = () => {}): void {
@@ -295,6 +299,8 @@ export default defineComponent({
       app.screen = 'cards';
     } else if (currentPathname === paths.HELP) {
       app.screen = 'help';
+    } else if (currentPathname === paths.WORKSHOP) { // CUSTOM(workshop)
+      app.screen = 'workshop';
     } else if (currentPathname === paths.SPECTATOR) {
       app.updateSpectator();
     } else if (currentPathname === paths.ADMIN) {

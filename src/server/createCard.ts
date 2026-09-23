@@ -7,6 +7,8 @@ import {IPreludeCard} from './cards/prelude/IPreludeCard';
 import {ICeoCard} from './cards/ceos/ICeoCard';
 import {ALL_MODULE_MANIFESTS} from './cards/AllManifests';
 import {resolveCardName} from '../common/cards/CardRenames';
+import {CustomCardRegistry} from './custom/cards/CustomCardRegistry'; // CUSTOM(workshop)
+import {CustomCardKindGroup} from './custom/cards/CustomCards'; // CUSTOM(workshop)
 
 function _createCard<T extends ICard>(cardName: CardName, cardManifestNames: Array<keyof ModuleManifest>): T | undefined {
   const standardizedCardName = resolveCardName(cardName);
@@ -20,7 +22,17 @@ function _createCard<T extends ICard>(cardName: CardName, cardManifestNames: Arr
       }
     }
   }
-  return undefined;
+  return CustomCardRegistry.getInstance().newCard(standardizedCardName, cardManifestNames.map(customGroup).filter((g) => g !== undefined)) as T | undefined; // CUSTOM(workshop)
+}
+
+// CUSTOM(workshop): which workshop group each manifest name corresponds to.
+function customGroup(manifestName: keyof ModuleManifest): CustomCardKindGroup | undefined {
+  switch (manifestName) {
+  case 'projectCards': return 'project';
+  case 'corporationCards': return 'corporation';
+  case 'preludeCards': return 'prelude';
+  default: return undefined;
+  }
 }
 
 export function newCard(cardName: CardName): ICard {

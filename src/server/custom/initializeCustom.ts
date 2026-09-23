@@ -1,5 +1,6 @@
 import {CustomStore} from './store/CustomStore';
 import {TurnNotifier} from './discord/TurnNotifier';
+import {CustomCardRegistry} from './cards/CustomCardRegistry';
 
 /**
  * Starts the fork's custom services.
@@ -8,6 +9,7 @@ import {TurnNotifier} from './discord/TurnNotifier';
  */
 export async function initializeCustom(): Promise<void> {
   await CustomStore.getInstance().initialize();
+  await CustomCardRegistry.getInstance().load();
   const notifier = TurnNotifier.getInstance();
   await notifier.initialize();
   if (!notifier.client.dmAvailable && !notifier.client.channelAvailable) {

@@ -1,0 +1,9 @@
+{
+  "name": "Mars Co-op",
+  "kind": "corporation",
+  "description": "You start with 45 M€ and 1 plant production. Action: gain 1 plant.",
+  "tags": ["plant"],
+  "startingMegaCredits": 45,
+  "effect": {"production": {"plants": 1}},
+  "action": {"stock": {"plants": 1}}
+}

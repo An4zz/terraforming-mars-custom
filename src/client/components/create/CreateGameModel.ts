@@ -65,4 +65,5 @@ export type CreateGameModel = {
   presetName?: string; // CUSTOM(presets)
   cardCopies?: CardCopies; // CUSTOM(card-pools)
   presetHands?: PresetHands; // CUSTOM(preset-hands)
+  customCards?: Array<string>; // CUSTOM(workshop)
 }

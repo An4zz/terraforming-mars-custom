@@ -8,6 +8,7 @@
               <CardTags :tags="tags" />
           </div>
           <CardTitle :title="card.name" :type="cardType"/>
+          <CustomCardArt v-if="cardMetadata.image !== undefined" :image="cardMetadata.image" /> <!-- CUSTOM(workshop) -->
           <CardContent
               :metadata="cardMetadata"
               :requirements="cardRequirements"
@@ -37,6 +38,7 @@ import CardTags from './CardTags.vue';
 import CardVictoryPoints from './CardVictoryPoints.vue';
 import CardContent from './CardContent.vue';
 import CardHelp from './CardHelp.vue';
+import CustomCardArt from '@/client/components/custom/CustomCardArt.vue'; // CUSTOM(workshop)
 import {CardType} from '@/common/cards/CardType';
 import {CardMetadata} from '@/common/cards/CardMetadata';
 import {Tag} from '@/common/cards/Tag';
@@ -60,6 +62,7 @@ export default defineComponent({
     CardTags,
     CardContent,
     CardVictoryPoints,
+    CustomCardArt, // CUSTOM(workshop)
   },
   props: {
     card: {

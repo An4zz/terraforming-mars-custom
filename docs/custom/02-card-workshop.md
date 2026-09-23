@@ -140,6 +140,23 @@ too large: rejected client-side and server-side. Card with an action but kind
 "automated": the action is ignored and the editor warns. Preview name collides with a real
 card: preview uses a `[draft] ` prefix in the manifest key and the server never stores it.
 
+## Deviations found while building
+
+- **Per-game versions (W-8)** are implemented with the card base class's own per-instance
+  properties: while a saved game is restored, the registry serves the definitions embedded in
+  that game (`GameOptions.customCardDefinitions`) and evicts the cached properties first, so
+  the restored cards carry that game's version even if the workshop has changed or deleted the
+  card. Cards rebuilt later in a running game (new deck copies) use the live definition. The
+  client renders every game with the live definition, since it has one manifest entry per name.
+- The `'custom'` module name was added to `GAME_MODULES` (not to `EXPANSIONS`), which meant
+  redefining `Expansion` as the `EXPANSIONS` tuple type and adding one `custom` entry to the
+  four records keyed by module.
+- Victory points are left to the card base class, which fills `metadata.victoryPoints`; the
+  compiler no longer sets it itself.
+- The preview registers the draft under a `[draft] ` prefix in the client manifest.
+- A "Duplicate" button and JSON export/import were added to the page; a draft's picture is
+  stored on the definition's `image` field for colonies as well as cards.
+
 ## Execution tasks
 
 Build (in this order, each with its tests before moving on):
