@@ -43,6 +43,7 @@ import {AresHandler} from './ares/AresHandler';
 import {AresData} from '../common/ares/AresData';
 import {GameSetup, normalizeBoardName} from './GameSetup';
 import {GameCards} from './GameCards';
+import {applyPresetHands} from './custom/deck/presetHands'; // CUSTOM(preset-hands)
 import {GlobalParameter} from '../common/GlobalParameter';
 import {AresSetup} from './ares/AresSetup';
 import {MoonData} from './moon/MoonData';
@@ -430,6 +431,7 @@ export class Game implements IGame, Logger {
           gameOptions.startingCeos = Math.max(gameOptions.startingCeos ?? 0, constants.CEO_CARDS_DEALT_PER_PLAYER);
           player.dealtCeoCards.push(...ceoDeck.drawN(game, gameOptions.startingCeos));
         }
+        applyPresetHands(game, player, {projectDeck, corporationDeck, preludeDeck, ceoDeck}); // CUSTOM(preset-hands)
       } else {
         game.playerHasPickedCorporationCard(player, new BeginnerCorporation());
       }

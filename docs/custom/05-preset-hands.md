@@ -68,6 +68,14 @@ project preset exists and `initialDraft` is checked, the form shows an inline wa
 `customCorporationsList` → fine, just dealt first. Solo game: the same rules apply. Two Corps
 variant: preludes list still applies; Merger is added by `SelectInitialCards` as today.
 
+## Deviations found while building
+
+- The draft flags are turned off by the dealing hook itself (`disableDraftsForPresetHands`), not
+  by `ApiCreateGame`, so games created directly (tests, tools) behave the same as games created
+  from the page. The page still shows the warning.
+- A preset list longer than the normal deal gives every player all of its cards rather than
+  trimming it; only shorter lists are topped up.
+
 ## Execution tasks
 
 Build:

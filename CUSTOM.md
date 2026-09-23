@@ -32,6 +32,11 @@ The new game page's "Custom pool" panel sets how many copies of a project card o
 the deck. Copies are full cards with their own resources. Effects that look up a card by name act
 on the first copy, and a selection prompt can pick only one copy at a time.
 
+## Preset hands
+
+The same panel sets the project cards, corporations, preludes and CEOs every player starts with.
+Shorter lists are topped up at random; drafts are turned off for any category that has a list.
+
 ## Syncing with upstream
 
 ```

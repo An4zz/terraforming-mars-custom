@@ -12,7 +12,7 @@ built until the plan is approved.
 | 2 | Custom card workshop | [02-card-workshop.md](02-card-workshop.md) | planned |
 | 3 | Action queue | [03-action-queue.md](03-action-queue.md) | planned |
 | 4 | Custom card pools (duplicates) | [04-card-pools.md](04-card-pools.md) | built |
-| 5 | Preset hands | [05-preset-hands.md](05-preset-hands.md) | planned |
+| 5 | Preset hands | [05-preset-hands.md](05-preset-hands.md) | built |
 | 6 | Discord turn notifications | [06-discord-notifications.md](06-discord-notifications.md) | planned |
 
 Suggested build order: 0, 1, 4, 5, 6, 3, 2. Presets, card pools and preset hands share the

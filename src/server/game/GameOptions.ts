@@ -7,7 +7,7 @@ import {RandomMAOptionType} from '../../common/ma/RandomMAOptionType';
 import {AgendaStyle} from '../../common/turmoil/Types';
 import {Expansion} from '../../common/cards/GameModule';
 import {EscapeVelocityOptions} from '../../common/game/NewGameConfig';
-import {CardCopies} from '../../common/custom/CustomGameOptions'; // CUSTOM(card-pools)
+import {CardCopies, PresetHands} from '../../common/custom/CustomGameOptions'; // CUSTOM(card-pools, preset-hands)
 
 export type GameOptions = {
   boardName: BoardName;
@@ -79,6 +79,8 @@ export type GameOptions = {
   presetName?: string; // CUSTOM(presets)
   /** Total copies of chosen project cards and preludes in the deck. */
   cardCopies?: CardCopies; // CUSTOM(card-pools)
+  /** Starting cards every player is dealt instead of a random draw. */
+  presetHands?: PresetHands; // CUSTOM(preset-hands)
 }
 
 export const DEFAULT_GAME_OPTIONS: GameOptions = {

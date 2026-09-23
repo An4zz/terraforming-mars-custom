@@ -488,7 +488,7 @@
                             </div>
                         </div>
 
-                        <CustomGameSettings v-model:cardCopies="cardCopies" /> <!-- CUSTOM(card-pools) -->
+                        <CustomGameSettings v-model:cardCopies="cardCopies" v-model:presetHands="presetHands" :initialDraft="initialDraft" :preludeDraft="preludeDraftVariant === true" :ceosDraft="ceosDraftVariant === true" /> <!-- CUSTOM(card-pools, preset-hands) -->
                         <PresetBar :getConfig="serializeSettings" :players="players" :playersCount="playersCount" :snapshot="formSnapshot" v-model:presetName="presetName" @load="loadPreset" /> <!-- CUSTOM(presets) -->
                         <div class="create-game-action">
                             <AppButton title="Create game" size="big" @click="createGame"/>
@@ -603,7 +603,7 @@ import {RULEBOOK_URLS, WIKI, WIKI_URLS} from '@/client/utils/WikiLinks';
 import {setDocumentTitle} from '@/client/utils/documentTitle';
 import PresetBar from '@/client/components/custom/PresetBar.vue'; // CUSTOM(presets)
 import CustomGameSettings from '@/client/components/custom/CustomGameSettings.vue'; // CUSTOM(card-pools)
-import {CardCopies, hasCardCopies} from '@/common/custom/CustomGameOptions'; // CUSTOM(card-pools)
+import {CardCopies, hasCardCopies, hasPresetHands, PresetHands} from '@/common/custom/CustomGameOptions'; // CUSTOM(card-pools, preset-hands)
 
 const REVISED_COUNT_ALGORITHM = false;
 const createGameSettingsStorage = new CreateGameSettingsStorage();
@@ -621,6 +621,7 @@ type FormModel = {
   previousViewport: string;
   presetName: string | undefined; // CUSTOM(presets)
   cardCopies: CardCopies; // CUSTOM(card-pools)
+  presetHands: PresetHands; // CUSTOM(preset-hands)
 };
 
 export default defineComponent({
@@ -633,6 +634,7 @@ export default defineComponent({
       previousViewport: '',
       presetName: undefined, // CUSTOM(presets)
       cardCopies: {}, // CUSTOM(card-pools)
+      presetHands: {}, // CUSTOM(preset-hands)
     };
   },
   components: {
@@ -823,6 +825,7 @@ export default defineComponent({
         uploading: false,
         presetName: undefined, // CUSTOM(presets)
         cardCopies: {}, // CUSTOM(card-pools)
+        presetHands: {}, // CUSTOM(preset-hands)
       });
       nextTick(() => {
         const refs = this.typedRefs;
@@ -1301,6 +1304,7 @@ export default defineComponent({
         startingPreludes,
         presetName: this.presetName, // CUSTOM(presets)
         cardCopies: hasCardCopies(this.cardCopies) ? this.cardCopies : undefined, // CUSTOM(card-pools)
+        presetHands: hasPresetHands(this.presetHands) ? this.presetHands : undefined, // CUSTOM(preset-hands)
       };
     },
     async createGame() {
