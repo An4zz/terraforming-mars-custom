@@ -165,6 +165,7 @@ export class ApiCreateGame extends Handler {
         startingCeos: gameReq.startingCeos,
         startingCorporations: gameReq.startingCorporations,
         startingPreludes: gameReq.startingPreludes,
+        presetName: gameReq.presetName, // CUSTOM(presets)
         starWarsExpansion: gameReq.expansions.starwars,
         turmoilExtension: gameReq.expansions.turmoil,
         twoCorpsVariant: gameReq.twoCorpsVariant,

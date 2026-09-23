@@ -455,6 +455,7 @@ export class Server {
       requiresVenusTrackCompletion: options.requiresVenusTrackCompletion,
       twoCorpsVariant: options.twoCorpsVariant,
       undoOption: options.undoOption,
+      presetName: options.presetName, // CUSTOM(presets)
     };
   }
 

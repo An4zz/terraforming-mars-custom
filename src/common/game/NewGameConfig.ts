@@ -81,4 +81,6 @@ export interface NewGameConfig {
   customCeos: Array<CardName>;
   startingCeos: number;
   startingPreludes: number;
+  /** The name of the preset the host started from, if any. */
+  presetName?: string; // CUSTOM(presets)
 }

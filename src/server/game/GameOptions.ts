@@ -74,6 +74,8 @@ export type GameOptions = {
   altVenusBoard: boolean;
   escapeVelocity?: EscapeVelocityOptions;
   twoCorpsVariant: boolean;
+  /** The name of the preset the host started from, if any. */
+  presetName?: string; // CUSTOM(presets)
 }
 
 export const DEFAULT_GAME_OPTIONS: GameOptions = {

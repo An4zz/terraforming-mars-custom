@@ -17,9 +17,24 @@ export type GamePresetRequest = {
   op: 'save',
   name: string,
   description?: string,
-  author?: string,
   config: NewGameConfig,
 } | {
   op: 'delete',
   id: string,
 };
+
+/** The response to saving a preset. */
+export type GamePresetSaveResponse = {
+  preset: GamePreset;
+  /** Problems worth telling the user about that did not stop the save, like renamed cards. */
+  warnings: Array<string>;
+};
+
+export const MAX_PRESET_NAME_LENGTH = 60;
+export const MAX_PRESET_DESCRIPTION_LENGTH = 500;
+export const MAX_PRESETS = 200;
+
+/** The preset name recorded on a game whose settings were changed after loading `name`. */
+export function modifiedPresetName(name: string): string {
+  return name + ' (modified)';
+}

@@ -61,4 +61,5 @@ export type CreateGameModel = {
   startingPreludes: number;
   twoCorpsVariant: boolean;
   undoOption: boolean;
+  presetName?: string; // CUSTOM(presets)
 }
