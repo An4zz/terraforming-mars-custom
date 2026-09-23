@@ -36,6 +36,7 @@ import {PlayedCards} from './cards/PlayedCards';
 import {From} from './logs/From';
 import {Tag} from '../common/cards/Tag';
 import {SelectStandardProjectToPlay} from './inputs/SelectStandardProjectToPlay';
+import {ActionQueueState} from '../common/custom/QueuedAction'; // CUSTOM(action-queue)
 
 /**
  * Represents additional costs a player must pay to execute an action.
@@ -338,6 +339,8 @@ export interface IPlayer {
 
   /** Player has prestated they want to pass on their next turn */
   autopass: boolean;
+  /** The actions to take automatically at the start of this player's turns. */
+  actionQueue: ActionQueueState; // CUSTOM(action-queue)
   /** Player is done taking actions this generation. */
   pass(): void;
   takeActionForFinalGreenery(): void;

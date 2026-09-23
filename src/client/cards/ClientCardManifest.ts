@@ -32,6 +32,19 @@ export function byModule(module: GameModule): (card: ClientCard) => boolean {
   return (card) => card.module === module;
 }
 
+/** Adds or replaces cards at runtime. Used for workshop cards. */
+export function addClientCards(newCards: Iterable<ClientCard>): void { // CUSTOM(workshop)
+  for (const card of newCards) {
+    const index = cardArray.findIndex((c) => c.name === card.name);
+    if (index === -1) {
+      cardArray.push(card);
+    } else {
+      cardArray[index] = card;
+    }
+    cards.set(card.name, card);
+  }
+}
+
 function initialize() {
   (cardJson as any as Array<ClientCard>).forEach((card) => {
     cards.set(card.name, card);

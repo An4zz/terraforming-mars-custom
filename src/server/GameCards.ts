@@ -17,7 +17,9 @@ import {GameOptions} from './game/GameOptions';
 import {ICorporationCard} from './cards/corporation/ICorporationCard';
 import {isIProjectCard, IProjectCard} from './cards/IProjectCard';
 import {IStandardProjectCard} from './cards/IStandardProjectCard';
-import {newCard} from './createCard';
+import {newCard, newPrelude, newProjectCard} from './createCard';
+import {addCardCopies} from './custom/deck/cardCopies'; // CUSTOM(card-pools)
+import {CustomCardRegistry} from './custom/cards/CustomCardRegistry'; // CUSTOM(workshop)
 import {resolveCardName} from '../common/cards/CardRenames';
 import {IPreludeCard} from './cards/prelude/IPreludeCard';
 import {ICeoCard} from './cards/ceos/ICeoCard';
@@ -78,6 +80,8 @@ export class GameCards {
   public getProjectCards() {
     const cards = this.getCards<IProjectCard>('projectCards');
     this.addCustomCards(cards, this.gameOptions.includedCards);
+    cards.push(...CustomCardRegistry.getInstance().cardsFor(this.gameOptions.customCards, 'project') as Array<IProjectCard>); // CUSTOM(workshop)
+    addCardCopies(cards, this.gameOptions.cardCopies, {banned: this.gameOptions.bannedCards, factory: newProjectCard}); // CUSTOM(card-pools)
     return cards.filter(isIProjectCard);
   }
   public getStandardProjects() {
@@ -87,6 +91,7 @@ export class GameCards {
     const cards = this.getCards<ICorporationCard>('corporationCards')
       .filter((card) => card.name !== CardName.BEGINNER_CORPORATION);
     this.addCustomCards(cards, this.gameOptions.customCorporationsList);
+    cards.push(...CustomCardRegistry.getInstance().cardsFor(this.gameOptions.customCards, 'corporation') as Array<ICorporationCard>); // CUSTOM(workshop)
     return cards;
   }
   public getPreludeCards() {
@@ -98,6 +103,8 @@ export class GameCards {
       preludes = this.instantiate(PRELUDE_CARD_MANIFEST.preludeCards);
     }
     this.addCustomCards(preludes, this.gameOptions.customPreludes);
+    preludes.push(...CustomCardRegistry.getInstance().cardsFor(this.gameOptions.customCards, 'prelude') as Array<IPreludeCard>); // CUSTOM(workshop)
+    addCardCopies(preludes, this.gameOptions.cardCopies, {banned: this.gameOptions.bannedCards, factory: newPrelude}); // CUSTOM(card-pools)
 
     if (this.gameOptions.twoCorpsVariant) {
       // As each player who doesn't have Merger is dealt Merger in SelectInitialCards.ts,

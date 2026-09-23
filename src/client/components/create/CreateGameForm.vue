@@ -488,6 +488,8 @@
                             </div>
                         </div>
 
+                        <CustomGameSettings v-model:cardCopies="cardCopies" v-model:presetHands="presetHands" v-model:customCards="customCards" :initialDraft="initialDraft" :preludeDraft="preludeDraftVariant === true" :ceosDraft="ceosDraftVariant === true" /> <!-- CUSTOM(card-pools, preset-hands) -->
+                        <PresetBar :getConfig="serializeSettings" :players="players" :playersCount="playersCount" :snapshot="formSnapshot" v-model:presetName="presetName" @load="loadPreset" /> <!-- CUSTOM(presets) -->
                         <div class="create-game-action">
                             <AppButton title="Create game" size="big" @click="createGame"/>
                             <AppButton title="Reset" size="big" @click="resetSettings"/>
@@ -599,6 +601,9 @@ import {CreateGameSettingsStorage} from './CreateGameSettingsStorage';
 import {getColony} from '@/client/colonies/ClientColonyManifest';
 import {RULEBOOK_URLS, WIKI, WIKI_URLS} from '@/client/utils/WikiLinks';
 import {setDocumentTitle} from '@/client/utils/documentTitle';
+import PresetBar from '@/client/components/custom/PresetBar.vue'; // CUSTOM(presets)
+import CustomGameSettings from '@/client/components/custom/CustomGameSettings.vue'; // CUSTOM(card-pools)
+import {CardCopies, hasCardCopies, hasPresetHands, PresetHands} from '@/common/custom/CustomGameOptions'; // CUSTOM(card-pools, preset-hands)
 
 const REVISED_COUNT_ALGORITHM = false;
 const createGameSettingsStorage = new CreateGameSettingsStorage();
@@ -614,6 +619,10 @@ type FormModel = {
   preludeToggled: boolean;
   uploading: boolean;
   previousViewport: string;
+  presetName: string | undefined; // CUSTOM(presets)
+  cardCopies: CardCopies; // CUSTOM(card-pools)
+  presetHands: PresetHands; // CUSTOM(preset-hands)
+  customCards: Array<string>; // CUSTOM(workshop)
 };
 
 export default defineComponent({
@@ -624,6 +633,10 @@ export default defineComponent({
       preludeToggled: false,
       uploading: false,
       previousViewport: '',
+      presetName: undefined, // CUSTOM(presets)
+      cardCopies: {}, // CUSTOM(card-pools)
+      presetHands: {}, // CUSTOM(preset-hands)
+      customCards: [], // CUSTOM(workshop)
     };
   },
   components: {
@@ -634,6 +647,8 @@ export default defineComponent({
     CorporationsFilter,
     PreludesFilter,
     PreferencesIcon,
+    PresetBar, // CUSTOM(presets)
+    CustomGameSettings, // CUSTOM(card-pools)
   },
   watch: {
     allOfficialExpansions(value: boolean) {
@@ -707,6 +722,11 @@ export default defineComponent({
     },
     typedRefs(): Refs {
       return this.$refs as Refs;
+    },
+    // CUSTOM(presets): a string of the form state, so PresetBar can tell when a loaded preset changed.
+    formSnapshot(): string {
+      const {presetName, uploading, preludeToggled, previousViewport, seed, ...rest} = this.$data;
+      return JSON.stringify(rest);
     },
     RandomBoardOption(): typeof RandomBoardOption {
       return RandomBoardOption;
@@ -783,6 +803,15 @@ export default defineComponent({
       });
       return processor;
     },
+    // CUSTOM(presets)
+    loadPreset(config: NewGameConfig) {
+      try {
+        const processor = this.applySettings(config as unknown as JSONObject);
+        this.showSettingsLoadResult('Load preset', processor);
+      } catch (e) {
+        vueRoot(this).showAlert('Load preset', 'Error loading preset ' + e);
+      }
+    },
     showSettingsLoadResult(title: string, processor: JSONProcessor) {
       const root = vueRoot(this);
       if (processor.warnings.length > 0) {
@@ -796,6 +825,10 @@ export default defineComponent({
       Object.assign(this, defaultCreateGameModel(), {
         preludeToggled: false,
         uploading: false,
+        presetName: undefined, // CUSTOM(presets)
+        cardCopies: {}, // CUSTOM(card-pools)
+        presetHands: {}, // CUSTOM(preset-hands)
+        customCards: [], // CUSTOM(workshop)
       });
       nextTick(() => {
         const refs = this.typedRefs;
@@ -1272,6 +1305,10 @@ export default defineComponent({
         twoCorpsVariant,
         startingCeos,
         startingPreludes,
+        presetName: this.presetName, // CUSTOM(presets)
+        cardCopies: hasCardCopies(this.cardCopies) ? this.cardCopies : undefined, // CUSTOM(card-pools)
+        presetHands: hasPresetHands(this.presetHands) ? this.presetHands : undefined, // CUSTOM(preset-hands)
+        customCards: this.customCards.length > 0 ? this.customCards : undefined, // CUSTOM(workshop)
       };
     },
     async createGame() {

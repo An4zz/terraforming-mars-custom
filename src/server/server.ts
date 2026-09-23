@@ -24,6 +24,7 @@ import {timeAsync} from '@/server/utils/timer';
 import {GameLoader} from '@/server/database/GameLoader';
 import {globalInitialize} from '@/server/globalInitialize';
 import {SessionManager} from '@/server/server/auth/SessionManager';
+import {initializeCustom} from '@/server/custom/initializeCustom'; // CUSTOM(foundation)
 
 process.on('uncaughtException', (err: any) => {
   console.error('UNCAUGHT EXCEPTION', err);
@@ -109,6 +110,7 @@ async function start() {
 
   // Initialize the session manager after initializing the database.
   await SessionManager.getInstance().initialize();
+  await initializeCustom(); // CUSTOM(foundation)
 
   try {
     Database.getInstance().stats().then((stats) => {

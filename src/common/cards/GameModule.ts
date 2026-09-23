@@ -19,10 +19,11 @@ export const EXPANSIONS = [
 export const GAME_MODULES = [
   'base',
   ...EXPANSIONS,
+  'custom', // CUSTOM(workshop): cards designed in the workshop; not an expansion a game toggles.
 ] as const;
 export type GameModule = typeof GAME_MODULES[number];
 
-export type Expansion = Exclude<GameModule, 'base'>;
+export type Expansion = typeof EXPANSIONS[number]; // CUSTOM(workshop): was Exclude<GameModule, 'base'>
 
 export const MODULE_NAMES = {
   base: 'Base',
@@ -41,6 +42,7 @@ export const MODULE_NAMES = {
   starwars: 'Star Wars',
   underworld: 'Underworld',
   deltaProject: 'Delta Project',
+  custom: 'Workshop', // CUSTOM(workshop)
 } satisfies Record<GameModule, string>;
 
 export const DEFAULT_EXPANSIONS = {

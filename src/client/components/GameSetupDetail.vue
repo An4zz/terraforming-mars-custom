@@ -74,6 +74,7 @@
             </li>
             <li v-if="gameOptions.twoCorpsVariant"><div class="setup-item" v-i18n>Merger</div></li>
             <li v-if="gameOptions.bannedCards.length > 0"><div class="setup-item" v-i18n>Banned cards:</div>{{ gameOptions.bannedCards.join(', ') }}</li>
+            <li v-if="gameOptions.presetName !== undefined"><div class="setup-item" v-i18n>Preset:</div>{{ gameOptions.presetName }}</li> <!-- CUSTOM(presets) -->
           </ul>
         </div>
 </template>

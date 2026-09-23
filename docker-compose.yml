@@ -3,6 +3,10 @@ services:
     container_name: terraforming-mars
     build: ./
     restart: unless-stopped
+    # CUSTOM(hosting): settings such as URL_ROOT and the Discord variables live in .env.
+    env_file:
+      - path: .env
+        required: false
     ports:
       - "8080:8080"
     security_opt:

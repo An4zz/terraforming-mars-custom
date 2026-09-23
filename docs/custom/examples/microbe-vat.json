@@ -1,0 +1,11 @@
+{
+  "name": "Microbe Vat",
+  "kind": "active",
+  "description": "Action: spend 1 microbe here to gain 2 M€. 1 VP per 2 microbes here.",
+  "cost": 6,
+  "tags": ["microbe"],
+  "resourceType": "Microbe",
+  "effect": {"addResources": 2},
+  "action": {"spend": {"resourcesHere": 1}, "stock": {"megacredits": 2}},
+  "victoryPoints": {"per": "resource", "points": 1, "each": 2}
+}

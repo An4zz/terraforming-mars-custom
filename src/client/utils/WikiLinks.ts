@@ -19,6 +19,7 @@ export const RULEBOOK_URLS: Record<GameModule, string> = {
   starwars: `${WIKI}/StarWars`,
   underworld: `${WIKI}/Underworld`,
   deltaProject: `${WIKI}/Delta-Project`,
+  custom: 'https://github.com/An4zz/terraforming-mars-custom/blob/main/CUSTOM.md', // CUSTOM(workshop)
 };
 
 export const WIKI_URLS = {

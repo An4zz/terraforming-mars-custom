@@ -89,6 +89,11 @@ export type StaticCardProperties = SharedProperties & {
 
 const cardProperties = new Map<CardName, InternalProperties>();
 
+/** Forgets the cached properties of `name`, so the next instance rebuilds them. Used when a workshop card changes. */
+export function evictCardProperties(name: CardName): void { // CUSTOM(workshop)
+  cardProperties.delete(name);
+}
+
 /**
  * Card is an implementation for most cards in the game, which provides one key features:
  *

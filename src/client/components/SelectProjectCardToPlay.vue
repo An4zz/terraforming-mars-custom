@@ -1,7 +1,8 @@
 <template>
 <div class="payments_cont">
   <div v-if="showtitle === true">{{ $t(playerinput.title) }}</div>
-  <label v-for="availableCard in cards" class="payments_cards" :key="availableCard.name">
+  <!-- CUSTOM(card-pools): copies share a name, so the key includes the position. -->
+  <label v-for="(availableCard, index) in cards" class="payments_cards" :key="availableCard.name + index">
     <input v-if="!availableCard.isDisabled" class="hidden" type="radio" v-model="cardName" :value="availableCard.name" >
     <Card class="cardbox" :card="availableCard" />
   </label>

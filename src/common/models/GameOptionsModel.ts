@@ -31,4 +31,5 @@ export type GameOptionsModel = {
   requiresVenusTrackCompletion: boolean,
   twoCorpsVariant: boolean,
   undoOption: boolean,
+  presetName?: string, // CUSTOM(presets)
 }

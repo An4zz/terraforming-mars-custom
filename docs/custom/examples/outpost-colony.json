@@ -1,0 +1,10 @@
+{
+  "name": "Outpost",
+  "kind": "colony",
+  "description": "A mining outpost.",
+  "colony": {
+    "buildBonus": {"kind": "production", "resource": "steel", "quantity": [1, 1, 1]},
+    "tradeBonus": {"kind": "resource", "resource": "titanium", "quantity": [0, 1, 1, 2, 2, 3, 4]},
+    "colonyBonus": {"kind": "resource", "resource": "steel", "quantity": 2}
+  }
+}

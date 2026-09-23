@@ -2,6 +2,12 @@ export const paths = {
   ADMIN: 'admin',
   API_CLONEABLEGAME: 'api/cloneablegame',
   API_CREATEGAME: 'api/creategame',
+  API_CUSTOM_CARDS: 'api/custom/cards', // CUSTOM(workshop)
+  API_CUSTOM_CLIENT_CARDS: 'api/custom/client-cards', // CUSTOM(workshop)
+  API_CUSTOM_DISCORD: 'api/custom/discord', // CUSTOM(discord)
+  API_CUSTOM_PRESETS: 'api/custom/presets', // CUSTOM(presets)
+  API_CUSTOM_QUEUE: 'api/custom/queue', // CUSTOM(action-queue)
+  API_CUSTOM_STATUS: 'api/custom/status', // CUSTOM(foundation)
   API_GAME: 'api/game',
   API_GAME_HISTORY: 'api/game/history',
   API_GAME_LOGS: 'api/game/logs',
@@ -31,4 +37,5 @@ export const paths = {
   RESET: 'reset',
   SPECTATOR: 'spectator',
   THE_END: 'the-end',
+  WORKSHOP: 'workshop', // CUSTOM(workshop)
 } as const;

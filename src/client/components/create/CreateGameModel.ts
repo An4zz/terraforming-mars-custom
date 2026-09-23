@@ -5,6 +5,7 @@ import {GameId} from '@/common/Types';
 import {AgendaStyle} from '@/common/turmoil/Types';
 import {BoardNameType, NewPlayerModel} from '@/common/game/NewGameConfig';
 import {Expansion} from '@/common/cards/GameModule';
+import {CardCopies, PresetHands} from '@/common/custom/CustomGameOptions'; // CUSTOM(card-pools, preset-hands)
 
 export type CreateGameModel = {
   /* A checkbox when selected selects all official expansions */
@@ -61,4 +62,8 @@ export type CreateGameModel = {
   startingPreludes: number;
   twoCorpsVariant: boolean;
   undoOption: boolean;
+  presetName?: string; // CUSTOM(presets)
+  cardCopies?: CardCopies; // CUSTOM(card-pools)
+  presetHands?: PresetHands; // CUSTOM(preset-hands)
+  customCards?: Array<string>; // CUSTOM(workshop)
 }

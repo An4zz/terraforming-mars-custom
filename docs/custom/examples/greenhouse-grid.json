@@ -1,0 +1,10 @@
+{
+  "name": "Greenhouse Grid",
+  "kind": "automated",
+  "description": "Requires 2 science tags. Increase your M€ production 2 steps and your TR 1 step.",
+  "cost": 10,
+  "tags": ["building", "plant"],
+  "requirements": [{"type": "tag", "tag": "science", "count": 2}],
+  "effect": {"production": {"megacredits": 2}, "tr": 1},
+  "victoryPoints": 1
+}

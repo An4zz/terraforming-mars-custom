@@ -5,6 +5,7 @@ import {ALL_COLONIES_TILES, BASE_COLONIES_TILES, COMMUNITY_COLONIES_TILES, PATHF
 import {GameOptions} from '../game/GameOptions';
 import {comparing} from '../../common/utils/Ordering';
 import {toName} from '../../common/utils/utils';
+import {CustomCardRegistry} from '../custom/cards/CustomCardRegistry'; // CUSTOM(workshop)
 
 // TODO(kberg): Add ability to hard-code chosen colonies, separate from customColoniesList, so as to not be
 // forced to rely on the RNG.
@@ -38,6 +39,7 @@ export class ColonyDealer {
     if (!gameOptions.aresExtension) {
       colonyTiles = colonyTiles.filter((c) => c.colonyName !== ColonyName.DEIMOS);
     }
+    colonyTiles = colonyTiles.concat(CustomCardRegistry.getInstance().colonyFactories(gameOptions.customCards)); // CUSTOM(workshop)
     this.gameColonies = colonyTiles.map((cf) => new cf.Factory());
   }
 
@@ -62,7 +64,7 @@ export class ColonyDealer {
     const customColonies = this.gameOptions.customColoniesList;
     let colonies = this.gameColonies;
     if (customColonies.length > 0) {
-      colonies = ALL_COLONIES_TILES.filter((c) => customColonies.includes(c.colonyName)).map((cf) => new cf.Factory());
+      colonies = [...ALL_COLONIES_TILES, ...CustomCardRegistry.getInstance().colonyFactories(this.gameOptions.customCards)] /* CUSTOM(workshop) */.filter((c) => customColonies.includes(c.colonyName)).map((cf) => new cf.Factory());
     }
 
     const count = (players + 2) +

@@ -51,10 +51,11 @@
         <DynamicTitle title="Actions" :color="thisPlayer.color"/>
         <WaitingFor v-if="game.phase !== 'end'" :playerView="playerView" :waitingfor="playerView.waitingFor"/>
       </div>
+      <CustomPlayerPanel class="player_home_block nofloat" :playerId="playerView.id" :refreshKey="game.gameAge" /> <!-- CUSTOM(discord, action-queue) -->
 
       <div class="player_home_block player_home_block--hand" v-if="playerView.draftedCards.length > 0">
         <DynamicTitle title="Drafted cards" :color="thisPlayer.color" />
-        <div v-for="card in playerView.draftedCards" :key="card.name" class="cardbox">
+        <div v-for="(card, index) in playerView.draftedCards" :key="card.name + index" class="cardbox"> <!-- CUSTOM(card-pools) -->
           <Card :card="card"/>
         </div>
       </div>
@@ -97,7 +98,7 @@
         <div v-for="card in getCardsByType(thisPlayer.tableau, [CardType.CEO])" :key="card.name" class="cardbox">
             <Card :card="card" :actionUsed="isCardActivated(card, thisPlayer)" :cubeColor="thisPlayer.color"/>
         </div>
-        <div v-show="isVisible('ACTIVE')" v-for="card in activeTableauCards" :key="card.name" class="cardbox">
+        <div v-show="isVisible('ACTIVE')" v-for="(card, index) in activeTableauCards" :key="card.name + index" class="cardbox"> <!-- CUSTOM(card-pools) -->
             <Card :card="card" :actionUsed="isCardActivated(card, thisPlayer)" :cubeColor="thisPlayer.color"/>
         </div>
 
@@ -110,7 +111,7 @@
       <div v-if="thisPlayer.selfReplicatingRobotsCards.length > 0" class="player_home_block">
         <DynamicTitle title="Self-replicating Robots cards" :color="thisPlayer.color"/>
         <div>
-          <div v-for="card in thisPlayer.selfReplicatingRobotsCards" :key="card.name" class="cardbox">
+          <div v-for="(card, index) in thisPlayer.selfReplicatingRobotsCards" :key="card.name + index" class="cardbox"> <!-- CUSTOM(card-pools) -->
             <Card :card="card"/>
           </div>
         </div>
@@ -167,6 +168,7 @@ import StackedCards from '@/client/components/StackedCards.vue';
 import PurgeWarning from '@/client/components/common/PurgeWarning.vue';
 import UndergroundTokens from '@/client/components/underworld/UndergroundTokens.vue';
 import KeyboardShortcuts from '@/client/components/KeyboardShortcuts.vue';
+import CustomPlayerPanel from '@/client/components/custom/CustomPlayerPanel.vue'; // CUSTOM(discord)
 import {getPreferences, Preferences, PreferencesManager} from '@/client/utils/PreferencesManager';
 import {GameModel} from '@/common/models/GameModel';
 import {PlayerViewModel, PublicPlayerModel} from '@/common/models/PlayerModel';
@@ -292,6 +294,7 @@ export default defineComponent({
     PurgeWarning,
     UndergroundTokens,
     KeyboardShortcuts,
+    CustomPlayerPanel, // CUSTOM(discord)
   },
   methods: {
     isPlayerActing(playerView: PlayerViewModel) : boolean {

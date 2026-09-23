@@ -1,0 +1,56 @@
+name: Sync upstream
+
+# Opens a pull request every week that merges upstream terraforming-mars `main` into this fork.
+# A merge conflict fails the job and lists the conflicting files; resolve those locally with
+# scripts/sync-upstream.sh.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge upstream
+        id: merge
+        run: |
+          BRANCH="upstream-sync/$(date +%Y-%m-%d)"
+          git checkout -b "$BRANCH"
+          if scripts/sync-upstream.sh main; then
+            if git diff --quiet main "$BRANCH"; then
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+            else
+              git push --force origin "$BRANCH"
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            exit 1
+          fi
+
+      - name: Open pull request
+        if: steps.merge.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="${{ steps.merge.outputs.branch }}"
+          if gh pr list --head "$BRANCH" --json number --jq 'length' | grep -q '^0$'; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "Sync upstream $(date +%Y-%m-%d)" \
+              --body "Weekly merge of upstream terraforming-mars/terraforming-mars main. Review CI, then merge."
+          fi

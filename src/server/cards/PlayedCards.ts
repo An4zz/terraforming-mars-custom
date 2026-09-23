@@ -1,6 +1,5 @@
 import {CardName} from '../../common/cards/CardName';
 import {ICard} from './ICard';
-import {inplaceRemove} from '../../common/utils/utils';
 import {deserializeCard, serializeCard} from './cardSerialization';
 import {SerializedCard} from '../SerializedCard';
 import {CardType} from '../../common/cards/CardType';
@@ -142,16 +141,16 @@ export class PlayedCards {
    */
   public push(...cards: Array<ICard>) {
     for (const card of cards) {
-      if (this.get(card.name)) {
-        throw new Error(`${card.name} already exists`);
-      }
+      // CUSTOM(card-pools): a second copy of a card is allowed; `get` keeps returning the first copy.
       this.pushCard(card);
     }
   }
 
   private pushCard(card: ICard) {
     this.array.push(card);
-    this.byName.set(card.name, card);
+    if (!this.byName.has(card.name)) { // CUSTOM(card-pools)
+      this.byName.set(card.name, card);
+    }
     if (card.type === CardType.EVENT) {
       this._eventCount++;
       this.addTags(card, this._eventTags);
@@ -165,17 +164,29 @@ export class PlayedCards {
    * to put the card wherever it eventually belongs.
    */
   remove(card: ICard) {
-    const found = this.byName.delete(card.name);
-    if (found) {
-      inplaceRemove(this.array, card);
-      if (card.type === CardType.EVENT) {
-        this._eventCount--;
-        this.removeTags(card, this._eventTags);
-      } else {
-        this.removeTags(card, this._tags);
-      }
+    // CUSTOM(card-pools): copies share a name, so remove this instance (or the first with its name)
+    // and keep the index pointing at a remaining copy.
+    let index = this.array.indexOf(card);
+    if (index === -1) {
+      index = this.array.findIndex((c) => c.name === card.name);
     }
-    return found;
+    if (index === -1) {
+      return false;
+    }
+    const removed = this.array.splice(index, 1)[0];
+    const remaining = this.array.find((c) => c.name === card.name);
+    if (remaining !== undefined) {
+      this.byName.set(card.name, remaining);
+    } else {
+      this.byName.delete(card.name);
+    }
+    if (removed.type === CardType.EVENT) {
+      this._eventCount--;
+      this.removeTags(removed, this._eventTags);
+    } else {
+      this.removeTags(removed, this._tags);
+    }
+    return true;
   }
 
   /**
